@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#080c14" />
+  <title>Apex Matrix — السلة</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body data-page="cart">
+
+  <!-- Header -->
+  <header class="app-header">
+    <div class="app-logo">
+      <a href="index.html" style="color:var(--text-muted);font-size:22px;text-decoration:none;padding:4px">←</a>
+      <div class="app-logo-text" style="margin-right:4px">🛒 سلة المشتريات</div>
+    </div>
+    <div style="font-size:13px;color:var(--text-muted)" id="cart-count-header"></div>
+  </header>
+
+  <!-- Page Content -->
+  <main class="page-content" id="cart-page-content">
+
+    <!-- Empty State -->
+    <div id="cart-empty" class="cart-empty" style="display:none">
+      <div class="cart-empty-icon">🛒</div>
+      <div class="cart-empty-text">السلة فارغة</div>
+      <p style="font-size:13px;color:var(--text-muted);margin-top:8px">اذهب للمتجر وأضف خدمات للسلة</p>
+      <a href="index.html" class="btn btn-primary" style="display:inline-flex;width:auto;padding:12px 28px;margin-top:20px">
+        🏪 تصفح المتجر
+      </a>
+    </div>
+
+    <!-- Cart Items -->
+    <div id="cart-items-container"></div>
+
+    <!-- Summary + Payment -->
+    <div id="cart-summary-section" style="display:none">
+
+      <!-- Discount Note -->
+      <div class="discount-banner">
+        <div class="discount-banner-icon">🏷️</div>
+        <div class="discount-banner-text">
+          تم تطبيق <strong>خصم 3%</strong> على إجمالي طلبك تلقائياً!
+        </div>
+      </div>
+
+      <!-- Order Summary -->
+      <div class="order-summary">
+        <div id="order-totals"></div>
+      </div>
+
+      <!-- Payment Instructions -->
+      <div class="payment-box">
+        <div class="payment-box-title">💳 تعليمات الدفع</div>
+        <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:14px">
+          حوّل المبلغ الإجمالي أعلاه على رقم المحفظة التالي، ثم ارفع صورة التأكيد:
+        </p>
+        <div class="wallet-number-display" id="wallet-display">01XXXXXXXXXX</div>
+        <div class="wallet-hint">رقم محفظة كاش الخاصة بـ Apex Matrix</div>
+        <button class="wallet-copy-btn" onclick="copyWalletNumber()">📋 نسخ الرقم</button>
+      </div>
+
+      <!-- Screenshot Upload -->
+      <div class="payment-box" style="margin-top:12px">
+        <div class="payment-box-title">📸 صورة إثبات التحويل</div>
+        <div class="upload-area" id="upload-area">
+          <input type="file" id="screenshot-input" accept="image/*" capture="environment" />
+          <div class="upload-icon">📷</div>
+          <div class="upload-text">
+            اضغط لرفع <strong>صورة التحويل</strong><br>
+            <span style="font-size:11px;opacity:0.6">JPG أو PNG — حتى 5 ميجابايت</span>
+          </div>
+          <img id="screenshot-preview" class="upload-preview" alt="صورة التحويل" />
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <button
+        class="btn btn-primary"
+        id="submit-order-btn"
+        onclick="submitOrder()"
+        style="margin-top:20px;margin-bottom:8px"
+      >
+        ✅ تأكيد الطلب وإرساله
+      </button>
+
+      <p style="font-size:11px;color:var(--text-muted);text-align:center;line-height:1.6;margin-bottom:24px">
+        بالضغط على تأكيد، أنت توافق على الشروط والأحكام.<br>
+        سيتم مراجعة طلبك خلال 24 ساعة.
+      </p>
+
+    </div>
+  </main>
+
+  <!-- Bottom Nav -->
+  <nav class="bottom-nav">
+    <a href="index.html" class="nav-item">
+      <span class="nav-icon">🏪</span>المتجر
+    </a>
+    <a href="cart.html" class="nav-item active">
+      <span class="nav-icon">🛒</span>السلة
+    </a>
+    <a href="history.html" class="nav-item">
+      <span class="nav-icon">📋</span>طلباتي
+    </a>
+    <a href="referral.html" class="nav-item">
+      <span class="nav-icon">🤝</span>الإحالة
+    </a>
+  </nav>
+
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Update header count
+      const cart = getCart();
+      const countEl = document.getElementById("cart-count-header");
+      if (countEl) countEl.textContent = cart.length > 0 ? `${cart.length} خدمة` : "";
+
+      // Set wallet display from constant
+      const walletDisplay = document.getElementById("wallet-display");
+      if (walletDisplay) walletDisplay.textContent = WALLET_NUMBER;
+    });
+  </script>
+</body>
+</html>

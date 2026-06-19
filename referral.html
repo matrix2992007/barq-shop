@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#080c14" />
+  <title>Apex Matrix — الإحالة</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body data-page="referral">
+
+  <!-- Header -->
+  <header class="app-header">
+    <div class="app-logo">
+      <div class="app-logo-mark">A</div>
+      <div class="app-logo-text">🤝 نظام <span>الإحالة</span></div>
+    </div>
+    <button
+      onclick="loadReferralData()"
+      style="background:none;border:none;color:var(--cyan);font-size:20px;cursor:pointer;padding:4px"
+      title="تحديث"
+    >↻</button>
+  </header>
+
+  <!-- Page Content -->
+  <main class="page-content">
+
+    <!-- Top Banner -->
+    <div style="
+      background:linear-gradient(135deg,#0a2010,#0f2820);
+      border:1px solid rgba(0,230,118,0.2);
+      border-radius:var(--radius-lg);
+      padding:20px;margin-bottom:20px;text-align:center
+    ">
+      <div style="font-size:42px;margin-bottom:8px">🎁</div>
+      <div style="font-size:17px;font-weight:700;margin-bottom:6px">اكسب من كل إحالة!</div>
+      <div style="font-size:13px;color:var(--text-secondary);line-height:1.7">
+        ادعُ أصدقاءك واحصل على مكافآت نقدية حقيقية.<br>
+        <strong style="color:var(--green)">1 جنيه</strong> لكل صديق يشتري +
+        <strong style="color:var(--cyan)">1.5 جنيه كاش باك</strong> على كل طلب لك
+      </div>
+    </div>
+
+    <!-- Dynamic Content -->
+    <div id="referral-content">
+      <div style="text-align:center;padding:40px">
+        <div class="loading-spinner" style="margin:0 auto"></div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Bottom Nav -->
+  <nav class="bottom-nav">
+    <a href="index.html" class="nav-item">
+      <span class="nav-icon">🏪</span>المتجر
+    </a>
+    <a href="cart.html" class="nav-item">
+      <span class="nav-icon">🛒</span>السلة
+    </a>
+    <a href="history.html" class="nav-item">
+      <span class="nav-icon">📋</span>طلباتي
+    </a>
+    <a href="referral.html" class="nav-item active">
+      <span class="nav-icon">🤝</span>الإحالة
+    </a>
+  </nav>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

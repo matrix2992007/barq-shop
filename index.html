@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#080c14" />
+  <title>Apex Matrix — المتجر</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body data-page="index">
+
+  <!-- Header -->
+  <header class="app-header">
+    <div class="app-logo">
+      <div class="app-logo-mark">A</div>
+      <div class="app-logo-text">Apex <span>Matrix</span></div>
+    </div>
+    <div class="header-actions">
+      <a href="cart.html" class="cart-btn" id="cart-header-btn">
+        🛒
+        <span class="cart-badge" id="cart-badge-header">0</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Page Content -->
+  <main class="page-content">
+    <!-- Hero + Balance -->
+    <div id="hero-section"></div>
+
+    <!-- Categories & Services -->
+    <div class="section-label">🎮 الخدمات المتاحة</div>
+    <div id="categories-container">
+      <div style="text-align:center;padding:40px">
+        <div class="loading-spinner" style="margin:0 auto"></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Floating Cart Button -->
+  <div id="floating-cart" style="
+    position:fixed;bottom:90px;left:20px;z-index:99;
+    display:none;
+  ">
+    <a href="cart.html" style="
+      display:flex;align-items:center;gap:8px;
+      background:linear-gradient(135deg,var(--cyan),#0090c0);
+      color:#080c14;font-weight:700;font-size:13px;
+      padding:12px 20px;border-radius:99px;text-decoration:none;
+      box-shadow:0 4px 20px rgba(0,212,255,0.4);
+    ">
+      🛒 السلة
+      <span id="floating-cart-count" style="
+        background:#080c14;color:var(--cyan);
+        border-radius:50%;width:20px;height:20px;
+        display:grid;place-items:center;font-size:11px;
+      ">0</span>
+    </a>
+  </div>
+
+  <!-- Bottom Nav -->
+  <nav class="bottom-nav">
+    <a href="index.html" class="nav-item active">
+      <span class="nav-icon">🏪</span>المتجر
+    </a>
+    <a href="cart.html" class="nav-item">
+      <span class="nav-icon">🛒</span>السلة
+    </a>
+    <a href="history.html" class="nav-item">
+      <span class="nav-icon">📋</span>طلباتي
+    </a>
+    <a href="referral.html" class="nav-item">
+      <span class="nav-icon">🤝</span>الإحالة
+    </a>
+  </nav>
+
+  <script src="js/app.js"></script>
+  <script>
+    // Show floating cart button when items exist
+    function syncFloatingCart() {
+      const cart = getCart();
+      const btn = document.getElementById("floating-cart");
+      const count = document.getElementById("floating-cart-count");
+      if (cart.length > 0) {
+        if (btn) btn.style.display = "block";
+        if (count) count.textContent = cart.length;
+      } else {
+        if (btn) btn.style.display = "none";
+      }
+      // Sync badge
+      const badge = document.getElementById("cart-badge-header");
+      if (badge) {
+        badge.textContent = cart.length;
+        badge.classList.toggle("visible", cart.length > 0);
+      }
+    }
+
+    // Override saveCart to also sync floating btn
+    const _origSave = saveCart;
+    // Re-hook after DOMContentLoaded
+    document.addEventListener("DOMContentLoaded", () => {
+      syncFloatingCart();
+      setInterval(syncFloatingCart, 500);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#080c14" />
+  <title>Apex Matrix — طلباتي</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body data-page="history">
+
+  <!-- Header -->
+  <header class="app-header">
+    <div class="app-logo">
+      <div class="app-logo-mark">A</div>
+      <div class="app-logo-text">📋 سجل <span>طلباتي</span></div>
+    </div>
+    <button
+      onclick="loadOrderHistory()"
+      style="background:none;border:none;color:var(--cyan);font-size:20px;cursor:pointer;padding:4px"
+      title="تحديث"
+    >↻</button>
+  </header>
+
+  <!-- Page Content -->
+  <main class="page-content">
+
+    <!-- Status Legend -->
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px">
+      <span class="status-badge status-pending">🟡 قيد المراجعة</span>
+      <span class="status-badge status-processing">🔵 قيد التنفيذ</span>
+      <span class="status-badge status-completed">🟢 مكتمل</span>
+      <span class="status-badge status-rejected">🔴 مرفوض</span>
+    </div>
+
+    <!-- Orders List -->
+    <div id="orders-container">
+      <div style="text-align:center;padding:40px">
+        <div class="loading-spinner" style="margin:0 auto"></div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Support Ticket Modal -->
+  <div class="modal-overlay" id="ticket-modal">
+    <div class="modal" style="position:relative">
+      <div class="modal-handle"></div>
+      <button class="modal-close" onclick="closeTicketModal()">✕</button>
+      <div class="modal-title" id="ticket-modal-title">🎫 فتح تذكرة دعم</div>
+
+      <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:14px">
+        اشرح مشكلتك بالتفصيل وسيرد عليك فريق خدمة العملاء في أقرب وقت.
+      </p>
+
+      <div class="ticket-form">
+        <div class="field-label">
+          💬 تفاصيل المشكلة <span class="field-required">*</span>
+        </div>
+        <textarea
+          class="ticket-textarea"
+          id="ticket-message"
+          placeholder="اكتب هنا تفاصيل المشكلة المتعلقة بالخدمة المرفوضة..."
+        ></textarea>
+        <p style="font-size:11px;color:var(--text-muted);margin-top:6px">
+          سيتم ربط تذكرتك برقم الطلب والخدمة المعنية تلقائياً
+        </p>
+      </div>
+
+      <button class="btn btn-primary" id="ticket-submit-btn" onclick="submitTicket()" style="margin-top:16px">
+        📤 إرسال التذكرة
+      </button>
+      <button class="btn btn-ghost" onclick="closeTicketModal()" style="margin-top:8px">
+        إلغاء
+      </button>
+    </div>
+  </div>
+
+  <!-- Bottom Nav -->
+  <nav class="bottom-nav">
+    <a href="index.html" class="nav-item">
+      <span class="nav-icon">🏪</span>المتجر
+    </a>
+    <a href="cart.html" class="nav-item">
+      <span class="nav-icon">🛒</span>السلة
+    </a>
+    <a href="history.html" class="nav-item active">
+      <span class="nav-icon">📋</span>طلباتي
+    </a>
+    <a href="referral.html" class="nav-item">
+      <span class="nav-icon">🤝</span>الإحالة
+    </a>
+  </nav>
+
+  <script src="js/app.js"></script>
+
+  <!-- Close modal on outside click -->
+  <script>
+    document.getElementById("ticket-modal").addEventListener("click", function(e) {
+      if (e.target === this) closeTicketModal();
+    });
+  </script>
+</body>
+</html>
